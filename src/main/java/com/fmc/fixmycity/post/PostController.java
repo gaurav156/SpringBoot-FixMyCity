@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -21,6 +22,10 @@ public class PostController {
     @RequestMapping(method = RequestMethod.GET, value = "/get", produces = {MediaType.APPLICATION_JSON_VALUE})
     public Post getPost(@RequestParam String postID) throws ExecutionException, InterruptedException {
         return postService.getPost(postID);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/posts", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> getPostList() throws ExecutionException, InterruptedException {
+        return postService.getPostList();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})

@@ -8,6 +8,9 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -30,6 +33,23 @@ public class PostService {
             return post;
         }
         return null;
+    }
+
+    public List<Post> getPostList() throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        int i = 1;
+        while(dbFirestore.collection("posts").document(String.valueOf(i)).get().get().exists()) {
+            String postID = String.valueOf(i);
+
+            DocumentReference documentReference = dbFirestore.collection("posts").document(postID);
+            ApiFuture<DocumentSnapshot> future = documentReference.get();
+            DocumentSnapshot document = future.get();
+
+            postList.add(document.toObject(Post.class));
+            i++;
+        }
+        return Collections.unmodifiableList(postList);
     }
 
     public String updatePost(Post post) throws ExecutionException, InterruptedException {
