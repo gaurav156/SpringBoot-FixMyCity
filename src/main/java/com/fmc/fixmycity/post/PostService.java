@@ -6,6 +6,8 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -60,10 +62,16 @@ public class PostService {
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 
-    public String deletePost(String postID) {
+    public ResponseEntity<HttpStatus> deletePost(String postID) {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> writeResult = dbFirestore.collection("posts").document(postID).delete();
-        return "Successfully deleted Post ID : "+ postID;
+
+        try {
+            ApiFuture<WriteResult> writeResult = dbFirestore.collection("posts").document(postID).delete();
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+        }
     }
 
     public String generatePostID() throws ExecutionException, InterruptedException {
