@@ -16,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class PostService {
     public String createPost(Post post) throws ExecutionException, InterruptedException {
+        post.setPostID(generatePostID());
+
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(post.getPostID()).set(post);
 
@@ -62,5 +64,10 @@ public class PostService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection("posts").document(postID).delete();
         return "Successfully deleted Post ID : "+ postID;
+    }
+
+    public String generatePostID() throws ExecutionException, InterruptedException {
+        String id = String.valueOf(getPostList().size()+1);
+        return id;
     }
 }
