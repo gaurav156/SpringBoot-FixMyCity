@@ -1,6 +1,5 @@
 package com.fmc.fixmycity.user;
 
-import com.fmc.fixmycity.post.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,7 +40,7 @@ public class UserController {
         return userService.deleteUser(email);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/users/type", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.GET, value = "/users/userType", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<User> sortUserByUserType() throws ExecutionException, InterruptedException {
         return userService.sortUserByUserType();
     }
@@ -56,13 +55,28 @@ public class UserController {
         return userService.sortUserByPostcode();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/type", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<User> filterUserByUserType(@RequestParam("type") String type) throws ExecutionException, InterruptedException {
+    @RequestMapping(method = RequestMethod.GET, value = "/users/filter/userType", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<User> filterUserByUserType(@RequestParam("userType") String type) throws ExecutionException, InterruptedException {
         return userService.filterUserByUserType(type);
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.GET, value = "/users/filter/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<User> filterUserByPostcode(@RequestParam("postcode") String postcode) throws ExecutionException, InterruptedException {
         return userService.filterUserByPostcode(postcode);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/authenticate", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User authenticateUser(@RequestParam("email") String email , @RequestParam("password") String password) throws ExecutionException, InterruptedException {
+        return userService.authenticateUser(email, password);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/reset", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<HttpStatus> resetPassword(@RequestParam("email") String email, @RequestParam("password") String password){
+        return userService.resetPassword(email, password);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/check", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public boolean checkEmail(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return userService.checkEmail(email);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.fmc.fixmycity.user;
 
-import com.fmc.fixmycity.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -97,5 +96,47 @@ public class UserService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         dbFirestore.collection("users").whereEqualTo("postcode", value).get().get().forEach(d -> userList.add(d.toObject(User.class)));
         return Collections.unmodifiableList(userList);
+    }
+
+    public User authenticateUser(String email , String password) throws ExecutionException, InterruptedException {
+        User result = null;
+        for (User i : getUserList()) {
+            if (i.getEmail().equals(email) & i.getPassword().equals(password)) {
+                result = i;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public ResponseEntity<HttpStatus> resetPassword(String email, String password) {
+        User result = new User();
+        try {
+            for (User i : getUserList()) {
+                if (i.getEmail().equals(email)) {
+                    result = i;
+                    break;
+                }
+            }
+            result.setPassword(password);
+            updateUser(result);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public boolean checkEmail(String email) throws ExecutionException, InterruptedException {
+        boolean present = false;
+        for (User i : getUserList()) {
+            if (i.getEmail().equals(email)) {
+                present = true;
+                break;
+            }
+        }
+        return present;
     }
 }
