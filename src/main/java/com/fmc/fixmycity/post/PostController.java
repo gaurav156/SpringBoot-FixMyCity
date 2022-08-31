@@ -43,4 +43,43 @@ public class PostController {
     public ResponseEntity<String> testing(){
         return ResponseEntity.ok("Working");
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/area", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> sortPostByArea() throws ExecutionException, InterruptedException {
+        return postService.sortPostByArea();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> sortPostByPostcode() throws ExecutionException, InterruptedException {
+        return postService.sortPostByPostcode();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/type", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> sorPostByType() throws ExecutionException, InterruptedException {
+        return postService.sortPostByType();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/area", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByArea(@RequestParam("area") String area) throws ExecutionException, InterruptedException {
+        return postService.filterPostByArea(area);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/city", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByCity(@RequestParam("city") String city ) throws ExecutionException, InterruptedException {
+        return postService.filterPostByCity(city);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByPostcode(@RequestParam("postcode") String postcode ) throws ExecutionException, InterruptedException {
+        return postService.filterPostByPostcode(postcode);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/email", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByEmail(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return postService.filterPostByEmail(email);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/type", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByType(@RequestParam("type") String type) throws ExecutionException, InterruptedException {
+        return postService.filterPostByType(type);
+    }
 }

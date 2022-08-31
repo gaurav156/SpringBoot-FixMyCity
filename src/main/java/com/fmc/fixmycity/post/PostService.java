@@ -42,17 +42,7 @@ public class PostService {
     public List<Post> getPostList() throws ExecutionException, InterruptedException {
         List<Post> postList = new ArrayList<>();
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        int i = 1;
-        while(dbFirestore.collection("posts").document(String.valueOf(i)).get().get().exists()) {
-            String postID = String.valueOf(i);
-
-            DocumentReference documentReference = dbFirestore.collection("posts").document(postID);
-            ApiFuture<DocumentSnapshot> future = documentReference.get();
-            DocumentSnapshot document = future.get();
-
-            postList.add(document.toObject(Post.class));
-            i++;
-        }
+        dbFirestore.collection("posts").get().get().forEach(d -> postList.add(d.toObject(Post.class)));
         return Collections.unmodifiableList(postList);
     }
 
@@ -77,5 +67,68 @@ public class PostService {
     public String generatePostID() throws ExecutionException, InterruptedException {
         String id = String.valueOf(getPostList().size()+1);
         return id;
+    }
+
+    public List<Post> sortPostByArea() throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").orderBy("area").get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+//        firestore.collection("USERS").get()
+//                .addOnSuccessListener { documents ->
+//            for (document in documents) {
+//                if(document.get("city").equals("karachi") || document.get("city").equals("Karachi")){
+//                    arrayList.add(document.toObject(chatModel::class.java));
+//                }
+//            }
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> sortPostByPostcode() throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").orderBy("postcode").get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> sortPostByType() throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").orderBy("type").get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> filterPostByArea(String value) throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("area", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> filterPostByCity(String value) throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("city", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> filterPostByPostcode(String value) throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("postcode", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> filterPostByEmail(String value) throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("email", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
+    }
+
+    public List<Post> filterPostByType(String value) throws ExecutionException, InterruptedException {
+        List<Post> postList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("type", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
+        return Collections.unmodifiableList(postList);
     }
 }
