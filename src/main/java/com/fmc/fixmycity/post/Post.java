@@ -18,6 +18,60 @@ public class Post {
     private String tempImage;
     private String type;
     private String description;
+    private int day;
+    private int month;
+    private int year;
+    private String time;
+    private String status;
+    private String resolvedDate;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getResolvedDate() {
+        return resolvedDate;
+    }
+
+    public void setResolvedDate(String resolvedDate) {
+        this.resolvedDate = resolvedDate;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public String getPostID() {
         return postID;
@@ -144,12 +198,12 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return getPostID().equals(post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && Objects.equals(getImageURL(), post.getImageURL()) && Objects.equals(getTempImage(), post.getTempImage()) && Objects.equals(getType(), post.getType()) && Objects.equals(getDescription(), post.getDescription());
+        return getDay() == post.getDay() && getMonth() == post.getMonth() && getYear() == post.getYear() && Objects.equals(getPostID(), post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && Objects.equals(getImageURL(), post.getImageURL()) && Objects.equals(getTempImage(), post.getTempImage()) && Objects.equals(getType(), post.getType()) && Objects.equals(getDescription(), post.getDescription()) && Objects.equals(getTime(), post.getTime()) && Objects.equals(getStatus(), post.getStatus()) && Objects.equals(getResolvedDate(), post.getResolvedDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getTempImage(), getType(), getDescription());
+        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getTempImage(), getType(), getDescription(), getDay(), getMonth(), getYear(), getTime(), getStatus(), getResolvedDate());
     }
 
     @Override
@@ -168,6 +222,12 @@ public class Post {
                 "imageURL : " + imageURL +
                 "tempImage : " + tempImage +
                 "type : " + type +
-                "description : " + description;
+                "description : " + description +
+                "day : " + day +
+                "month : " + month +
+                "year : " + year +
+                "time : " + time +
+                "status : " + status +
+                "resolvedDate : " + resolvedDate;
     }
 }

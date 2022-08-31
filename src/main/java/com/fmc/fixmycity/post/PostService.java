@@ -10,8 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -19,6 +23,19 @@ import java.util.concurrent.ExecutionException;
 public class PostService {
     public String createPost(Post post) throws ExecutionException, InterruptedException {
         post.setPostID(generatePostID());
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year  = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day   = localDate.getDayOfMonth();
+        SimpleDateFormat formatDate = new SimpleDateFormat("h:mm a");
+        String time = formatDate.format(new Date()).toString();
+
+        post.setDay(day);
+        post.setMonth(month);
+        post.setYear(year);
+        post.setTime(time);
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(post.getPostID()).set(post);
