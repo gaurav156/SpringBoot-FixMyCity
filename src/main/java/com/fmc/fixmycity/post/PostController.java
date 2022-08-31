@@ -82,4 +82,9 @@ public class PostController {
     public List<Post> filterPostByType(@RequestParam("type") String type) throws ExecutionException, InterruptedException {
         return postService.filterPostByType(type);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/filter/status", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<Post> filterPostByStatus(@RequestParam("status") String status) throws ExecutionException, InterruptedException {
+        return postService.filterPostByStatus(status);
+    }
 }
