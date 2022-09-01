@@ -1,3 +1,7 @@
+server.ssl.key-alias=spring-https
+server.ssl.key-store=classpath:sslkey.jks
+server.ssl.key-store-type=JKS
+server.ssl.key-store-password=
 server.port=3000
 
 #Email Config :
