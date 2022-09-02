@@ -52,8 +52,8 @@ public class EmailSendService {
                 actualOtp = o.getOtp();
             }
         }
-
-        if (givenOtp.getOtp() == actualOtp) {
+        String gOtp = String.valueOf(givenOtp.getOtp());
+        if (givenOtp.getOtp() == actualOtp || gOtp.equals(givenOtp.getOtp())) {
             System.out.println("OTP verified");
             otpDB.remove(givenOtp);
             return "verified";
