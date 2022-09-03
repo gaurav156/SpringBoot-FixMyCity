@@ -34,9 +34,9 @@ public class EmailSendService {
         return rand.nextInt(9999);
     }
 
-    public void sendOtp(String email) {
+    public void sendOtp(String email, String subject) {
         int newOtp = generateOtp();
-        sendSimpleEmail(email, "OTP for account verification", "OTP is : "+ newOtp);
+        sendSimpleEmail(email, subject, "OTP is : "+ newOtp);
         Otp otp = new Otp();
         otp.setEmail(email);
         otp.setOtp(newOtp);

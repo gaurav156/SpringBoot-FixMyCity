@@ -15,8 +15,8 @@ public class EmailSendController {
     private EmailSendService emailSendService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/send", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public void sendOtp(@RequestParam("email") String email) {
-        emailSendService.sendOtp(email);
+    public void sendOtp(@RequestParam("email") String email, @RequestParam("subject") String subject) {
+        emailSendService.sendOtp(email, subject);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/verify", produces = {MediaType.APPLICATION_JSON_VALUE})
