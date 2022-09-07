@@ -83,6 +83,9 @@ public class PostService {
 
     public String generatePostID() throws ExecutionException, InterruptedException {
         String id = String.valueOf(getPostList().size()+1);
+        while (getPost(id) != null){
+            id = String.valueOf(Integer.parseInt(id)+1);
+        }
         return id;
     }
 
