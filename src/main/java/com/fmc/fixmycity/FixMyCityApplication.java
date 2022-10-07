@@ -13,16 +13,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 @SpringBootApplication
 public class FixMyCityApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, URISyntaxException {
 		ClassLoader classLoader = FixMyCityApplication.class.getClassLoader();
 
-		File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
-		FileInputStream serviceAccount = new FileInputStream(file.getAbsoluteFile());
+		URI uri = new URI(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getPath());
+		FileInputStream serviceAccount = new FileInputStream(uri.getPath());
+
+//		File file = new File(Objects.requireNonNull(classLoader.getResource("serviceAccountKey.json")).getFile());
+//		FileInputStream serviceAccount = new FileInputStream(file.getAbsoluteFile());
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
