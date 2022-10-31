@@ -1,10 +1,7 @@
 package com.fmc.fixmycity.post;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +10,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -164,4 +158,34 @@ public class PostService {
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(postID).update("status", status.toLowerCase());
         return "Status Updated for PostID: " + postID + " at: "+ collectionsApiFuture.get().getUpdateTime();
     }
+    public List<String> getLikedBy(String postID) throws ExecutionException, InterruptedException {
+        List<String> likedByList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        Object docObject = dbFirestore.collection("posts").select("likedBy").whereEqualTo("postID", postID).get().get().getDocuments().get(0).get("likedBy");
+        likedByList = (List<String>) docObject;
+//        System.out.println(likedByList);
+        return likedByList;
+    }
+    public String likePost(String postID, String email) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        final Map<String, Object> addUserToArrayMap = new HashMap<>();
+        addUserToArrayMap.put("likedBy", FieldValue.arrayUnion(email));
+        dbFirestore.collection("posts").document(postID).update(addUserToArrayMap);
+
+        return "PostID: " + postID +" liked by: " +email;
+    }
+
+    public String unLikePost(String postID, String email) throws ExecutionException, InterruptedException {
+        List<String> likedBy = getLikedBy(postID);
+        if(likedBy.contains(email)){
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            likedBy.remove(email);
+            dbFirestore.collection("posts").document(postID).update("likedBy", likedBy);
+        return "PostID: " + postID +" unliked by: " +email;
+        }
+        else {
+            return "already unliked";
+        }
+    }
+
 }

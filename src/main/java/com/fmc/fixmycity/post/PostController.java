@@ -92,4 +92,19 @@ public class PostController {
     public String updateStatus(@RequestParam("postID") String postID, @RequestParam("status") String status) throws ExecutionException, InterruptedException {
         return postService.updateStatus(postID, status);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/likedBy", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<String> getLikedBy(@RequestParam("postID") String postID) throws ExecutionException, InterruptedException {
+        return postService.getLikedBy(postID);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/posts/like", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String likePost(@RequestParam("postID") String postID, @RequestParam("email") String email) {
+        return postService.likePost(postID, email);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/posts/unlike", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String unLikePost(@RequestParam("postID") String postID, @RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return postService.unLikePost(postID, email);
+    }
 }

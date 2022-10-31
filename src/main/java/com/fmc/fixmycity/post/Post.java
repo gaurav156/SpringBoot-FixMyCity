@@ -1,5 +1,6 @@
 package com.fmc.fixmycity.post;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Post {
@@ -24,6 +25,16 @@ public class Post {
     private String time;
     private String status;
     private String resolvedDate;
+
+    private List<String> likedBy;
+
+    public List<String> getLikedBy() {
+        return likedBy;
+    }
+
+    public void setLikedBy(List<String> likedBy) {
+        this.likedBy = likedBy;
+    }
 
     public String getStatus() {
         return status;
@@ -198,12 +209,12 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return getDay() == post.getDay() && getMonth() == post.getMonth() && getYear() == post.getYear() && Objects.equals(getPostID(), post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && Objects.equals(getImageURL(), post.getImageURL()) && Objects.equals(getTempImage(), post.getTempImage()) && Objects.equals(getType(), post.getType()) && Objects.equals(getDescription(), post.getDescription()) && Objects.equals(getTime(), post.getTime()) && Objects.equals(getStatus(), post.getStatus()) && Objects.equals(getResolvedDate(), post.getResolvedDate());
+        return getDay() == post.getDay() && getMonth() == post.getMonth() && getYear() == post.getYear() && Objects.equals(getPostID(), post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && Objects.equals(getImageURL(), post.getImageURL()) && Objects.equals(getTempImage(), post.getTempImage()) && Objects.equals(getType(), post.getType()) && Objects.equals(getDescription(), post.getDescription()) && Objects.equals(getTime(), post.getTime()) && Objects.equals(getStatus(), post.getStatus()) && Objects.equals(getResolvedDate(), post.getResolvedDate()) && Objects.equals(getLikedBy(), post.getLikedBy());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getTempImage(), getType(), getDescription(), getDay(), getMonth(), getYear(), getTime(), getStatus(), getResolvedDate());
+        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getTempImage(), getType(), getDescription(), getDay(), getMonth(), getYear(), getTime(), getStatus(), getResolvedDate(), getLikedBy());
     }
 
     @Override
@@ -228,6 +239,7 @@ public class Post {
                 "year : " + year +
                 "time : " + time +
                 "status : " + status +
-                "resolvedDate : " + resolvedDate;
+                "resolvedDate : " + resolvedDate +
+                "likedBy : " + likedBy;
     }
 }
