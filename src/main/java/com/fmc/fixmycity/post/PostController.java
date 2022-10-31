@@ -87,4 +87,9 @@ public class PostController {
     public List<Post> filterPostByStatus(@RequestParam("status") String status) throws ExecutionException, InterruptedException {
         return postService.filterPostByStatus(status);
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/posts/update/status", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String updateStatus(@RequestParam("postID") String postID, @RequestParam("status") String status) throws ExecutionException, InterruptedException {
+        return postService.updateStatus(postID, status);
+    }
 }
