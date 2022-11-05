@@ -2,7 +2,6 @@ package com.fmc.fixmycity.post.commentreply;
 
 import com.fmc.fixmycity.post.comment.Comment;
 import com.fmc.fixmycity.post.comment.CommentService;
-import com.fmc.fixmycity.post.comment.reply.Reply;
 import com.fmc.fixmycity.post.comment.reply.ReplyService;
 import com.fmc.fixmycity.user.User;
 import com.fmc.fixmycity.user.UserService;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 @Service
 public class CommentReplyService {
@@ -44,7 +42,6 @@ public class CommentReplyService {
             obj.setMinute(c.getMinute());
             obj.setSecond(c.getSecond());
             obj.setTime(c.getTime());
-            obj.setRepliesID(c.getRepliesID());
             obj.setUserName(user.getFirstName());
             obj.setProfileImage(user.getProfileImage());
             obj.setReplies(replyService.getReplyList(postID, commentID));

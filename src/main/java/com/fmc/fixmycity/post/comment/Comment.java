@@ -1,6 +1,5 @@
 package com.fmc.fixmycity.post.comment;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +17,6 @@ public class Comment {
     private int hour;
     private int minute;
     private int second;
-    private List<String> repliesID;
 
     public String getCommentID() {
         return commentID;
@@ -100,13 +98,6 @@ public class Comment {
         this.time = time;
     }
 
-    public List<String> getRepliesID() {
-        return repliesID;
-    }
-
-    public void setRepliesID(List<String> repliesID) {
-        this.repliesID = repliesID;
-    }
 
     public int getHour() {
         return hour;
@@ -137,12 +128,12 @@ public class Comment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Comment comment1 = (Comment) o;
-        return getDay() == comment1.getDay() && getMonth() == comment1.getMonth() && getYear() == comment1.getYear() && getHour() == comment1.getHour() && getMinute() == comment1.getMinute() && getSecond() == comment1.getSecond() && getCommentID().equals(comment1.getCommentID()) && getPostID().equals(comment1.getPostID()) && getEmail().equals(comment1.getEmail()) && getComment().equals(comment1.getComment()) && Objects.equals(getLikedBy(), comment1.getLikedBy()) && Objects.equals(getImageURL(), comment1.getImageURL()) && Objects.equals(getTime(), comment1.getTime()) && Objects.equals(getRepliesID(), comment1.getRepliesID());
+        return getDay() == comment1.getDay() && getMonth() == comment1.getMonth() && getYear() == comment1.getYear() && getHour() == comment1.getHour() && getMinute() == comment1.getMinute() && getSecond() == comment1.getSecond() && getCommentID().equals(comment1.getCommentID()) && getPostID().equals(comment1.getPostID()) && getEmail().equals(comment1.getEmail()) && getComment().equals(comment1.getComment()) && Objects.equals(getLikedBy(), comment1.getLikedBy()) && Objects.equals(getImageURL(), comment1.getImageURL()) && Objects.equals(getTime(), comment1.getTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getHour(), getMinute(), getSecond(), getRepliesID());
+        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getHour(), getMinute(), getSecond());
     }
 
     @Override
@@ -159,7 +150,6 @@ public class Comment {
                 "hour : " + hour +
                 "minute : " + minute +
                 "second : " + second +
-                "time : " + time +
-                "repliesID : " + repliesID;
+                "time : " + time ;
     }
 }

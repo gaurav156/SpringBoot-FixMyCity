@@ -17,7 +17,6 @@ public class CommentReply {
     private int month;
     private int year;
     private String time;
-    private List<String> repliesID;
     private List<Reply> replies;
     private String userName;
     private String profileImage;
@@ -121,14 +120,6 @@ public class CommentReply {
         this.time = time;
     }
 
-    public List<String> getRepliesID() {
-        return repliesID;
-    }
-
-    public void setRepliesID(List<String> repliesID) {
-        this.repliesID = repliesID;
-    }
-
     public List<Reply> getReplies() {
         return replies;
     }
@@ -165,12 +156,12 @@ public class CommentReply {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommentReply that = (CommentReply) o;
-        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getCommentID().equals(that.getCommentID()) && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getComment().equals(that.getComment()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getRepliesID(), that.getRepliesID()) && Objects.equals(getReplies(), that.getReplies()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getProfileImage(), that.getProfileImage());
+        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getCommentID().equals(that.getCommentID()) && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getComment().equals(that.getComment()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getReplies(), that.getReplies()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getProfileImage(), that.getProfileImage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getRepliesID(), getReplies(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
+        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getReplies(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
     }
 
     @Override
@@ -190,7 +181,6 @@ public class CommentReply {
                 "minute : " + minute +
                 "second : " + second +
                 "time : " + time +
-                "repliesID : " + repliesID +
                 "replies : " + replies;
     }
 }
