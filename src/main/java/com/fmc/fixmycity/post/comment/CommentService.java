@@ -1,6 +1,5 @@
 package com.fmc.fixmycity.post.comment;
 
-import com.fmc.fixmycity.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -20,16 +19,23 @@ public class CommentService {
         comment.setCommentID(generateCommentID(comment.getPostID()));
 
         Date date = new Date();
+        Calendar now = Calendar.getInstance();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year  = localDate.getYear();
         int month = localDate.getMonthValue();
         int day   = localDate.getDayOfMonth();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+        int second = now.get(Calendar.SECOND);
         SimpleDateFormat formatDate = new SimpleDateFormat("h:mm a");
         String time = formatDate.format(new Date()).toString();
 
         comment.setDay(day);
         comment.setMonth(month);
         comment.setYear(year);
+        comment.setHour(hour);
+        comment.setMinute(minute);
+        comment.setSecond(second);
         comment.setTime(time);
 
         Firestore dbFirestore = FirestoreClient.getFirestore();

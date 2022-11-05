@@ -1,8 +1,11 @@
 package com.fmc.fixmycity.post.comment.reply;
 
+import com.fmc.fixmycity.user.User;
+import com.fmc.fixmycity.user.UserService;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,22 +18,35 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class ReplyService {
+    @Autowired
+    private UserService userService;
 
     public String replyOnComment(String postID, Reply reply) throws ExecutionException, InterruptedException {
         reply.setReplyID(generateReplyID(postID, reply.getCommentID()));
 
         Date date = new Date();
+        Calendar now = Calendar.getInstance();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year  = localDate.getYear();
         int month = localDate.getMonthValue();
         int day   = localDate.getDayOfMonth();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+        int second = now.get(Calendar.SECOND);
         SimpleDateFormat formatDate = new SimpleDateFormat("h:mm a");
         String time = formatDate.format(new Date()).toString();
 
         reply.setDay(day);
         reply.setMonth(month);
         reply.setYear(year);
+        reply.setHour(hour);
+        reply.setMinute(minute);
+        reply.setSecond(second);
         reply.setTime(time);
+
+        User user = userService.getUser(reply.getEmail());
+        reply.setUserName(user.getFirstName());
+        reply.setProfileImage(user.getProfileImage());
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts/"+postID+"/comments/"+reply.getCommentID()+"/replies").document(reply.getReplyID()).set(reply);

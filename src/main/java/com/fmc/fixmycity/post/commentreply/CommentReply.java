@@ -1,20 +1,24 @@
-package com.fmc.fixmycity.post.comment.reply;
+package com.fmc.fixmycity.post.commentreply;
 
-import java.util.HashSet;
+import com.fmc.fixmycity.post.comment.Comment;
+import com.fmc.fixmycity.post.comment.reply.Reply;
+
 import java.util.List;
 import java.util.Objects;
 
-public class Reply {
-    private String replyID;
+public class CommentReply {
     private String commentID;
+    private String postID;
     private String email;
-    private String reply;
+    private String comment;
     private List<String> likedBy;
     private String imageURL;
     private int day;
     private int month;
     private int year;
     private String time;
+    private List<String> repliesID;
+    private List<Reply> replies;
     private String userName;
     private String profileImage;
     private int hour;
@@ -37,20 +41,20 @@ public class Reply {
         this.profileImage = profileImage;
     }
 
-    public String getReplyID() {
-        return replyID;
-    }
-
-    public void setReplyID(String replyID) {
-        this.replyID = replyID;
-    }
-
     public String getCommentID() {
         return commentID;
     }
 
     public void setCommentID(String commentID) {
         this.commentID = commentID;
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 
     public String getEmail() {
@@ -61,12 +65,12 @@ public class Reply {
         this.email = email;
     }
 
-    public String getReply() {
-        return reply;
+    public String getComment() {
+        return comment;
     }
 
-    public void setReply(String reply) {
-        this.reply = reply;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public List<String> getLikedBy() {
@@ -117,6 +121,21 @@ public class Reply {
         this.time = time;
     }
 
+    public List<String> getRepliesID() {
+        return repliesID;
+    }
+
+    public void setRepliesID(List<String> repliesID) {
+        this.repliesID = repliesID;
+    }
+
+    public List<Reply> getReplies() {
+        return replies;
+    }
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+    }
+
     public int getHour() {
         return hour;
     }
@@ -145,23 +164,23 @@ public class Reply {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Reply reply1 = (Reply) o;
-        return getDay() == reply1.getDay() && getMonth() == reply1.getMonth() && getYear() == reply1.getYear() && getHour() == reply1.getHour() && getMinute() == reply1.getMinute() && getSecond() == reply1.getSecond() && getReplyID().equals(reply1.getReplyID()) && getCommentID().equals(reply1.getCommentID()) && getEmail().equals(reply1.getEmail()) && getReply().equals(reply1.getReply()) && Objects.equals(getLikedBy(), reply1.getLikedBy()) && Objects.equals(getImageURL(), reply1.getImageURL()) && Objects.equals(getTime(), reply1.getTime()) && Objects.equals(getUserName(), reply1.getUserName()) && Objects.equals(getProfileImage(), reply1.getProfileImage());
+        CommentReply that = (CommentReply) o;
+        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getCommentID().equals(that.getCommentID()) && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getComment().equals(that.getComment()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getRepliesID(), that.getRepliesID()) && Objects.equals(getReplies(), that.getReplies()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getProfileImage(), that.getProfileImage());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getReplyID(), getCommentID(), getEmail(), getReply(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
+        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getRepliesID(), getReplies(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
     }
 
     @Override
     public String toString() {
-        return "replyID : " + replyID +
-                "commentID : " + commentID +
+        return "commentID : " + commentID +
+                "postID : " + postID +
                 "email : " + email +
                 "userName : " + userName +
                 "profileImage : " + profileImage +
-                "reply : " + reply +
+                "comment : " + comment +
                 "likedBy : " + likedBy +
                 "imageURL : " + imageURL +
                 "day : " + day +
@@ -170,6 +189,8 @@ public class Reply {
                 "hour : " + hour +
                 "minute : " + minute +
                 "second : " + second +
-                "time : " + time ;
+                "time : " + time +
+                "repliesID : " + repliesID +
+                "replies : " + replies;
     }
 }
