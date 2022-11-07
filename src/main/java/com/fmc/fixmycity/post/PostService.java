@@ -19,17 +19,25 @@ public class PostService {
         post.setPostID(generatePostID());
 
         Date date = new Date();
+        Calendar now = Calendar.getInstance();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int year  = localDate.getYear();
         int month = localDate.getMonthValue();
         int day   = localDate.getDayOfMonth();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+        int second = now.get(Calendar.SECOND);
         SimpleDateFormat formatDate = new SimpleDateFormat("h:mm a");
         String time = formatDate.format(new Date()).toString();
 
         post.setDay(day);
         post.setMonth(month);
         post.setYear(year);
+        post.setHour(hour);
+        post.setMinute(minute);
+        post.setSecond(second);
         post.setTime(time);
+        post.setDate(new Date());
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(post.getPostID()).set(post);
