@@ -55,11 +55,18 @@ public class ReplyService {
     }
 
     private String generateReplyID(String postID, String commentID) throws ExecutionException, InterruptedException {
-        String id = String.valueOf(getReplyList(postID, commentID).size()+1);
-        while (getReply(postID, commentID, id) != null){
-            id = String.valueOf(Integer.parseInt(id)+1);
+        int ind = getReplyList(postID, commentID).size();
+        int id = ind;
+        if(ind > 0){
+            id = Integer.parseInt(getReplyList(postID, commentID).get(ind - 1).getReplyID()) + 1;
         }
-        return id;
+        if(id < 10){
+            id = 10;
+        }
+        while(getReply(postID, commentID, String.valueOf(id)) != null){
+            id++;
+        }
+        return String.valueOf(id);
     }
 
     public Reply getReply(String postID, String commentID, String replyID) throws ExecutionException, InterruptedException {

@@ -45,11 +45,19 @@ public class CommentService {
     }
 
     private String generateCommentID(String postID) throws ExecutionException, InterruptedException {
-        String id = String.valueOf(getCommentList(postID).size()+1);
-        while (getComment(postID, id) != null){
-            id = String.valueOf(Integer.parseInt(id)+1);
+        int ind = getCommentList(postID).size();
+        int id = ind;
+
+        if(ind > 0) {
+            id = Integer.parseInt(getCommentList(postID).get(ind - 1).getCommentID()) + 1;
         }
-        return id;
+        if(id < 10){
+            id= 10;
+        }
+        while (getComment(postID, String.valueOf(id)) != null){
+            id++;
+        }
+        return String.valueOf(id);
     }
 
     public Comment getComment(String postID, String commentID) throws ExecutionException, InterruptedException {

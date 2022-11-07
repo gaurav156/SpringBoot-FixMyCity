@@ -76,11 +76,18 @@ public class PostService {
     }
 
     public String generatePostID() throws ExecutionException, InterruptedException {
-        String id = String.valueOf(getPostList().size()+1);
-        while (getPost(id) != null){
-            id = String.valueOf(Integer.parseInt(id)+1);
+        int ind = getPostList().size();
+        int id = ind;
+        if(ind > 0) {
+            id = Integer.parseInt(getPostList().get(ind - 1).getPostID()) +1;
         }
-        return id;
+        if(id < 10){
+            id= 10;
+        }
+        while (getPost(String.valueOf(id)) != null){
+            id++;
+        }
+        return String.valueOf(id);
     }
 
     public List<Post> sortPostByArea() throws ExecutionException, InterruptedException {
