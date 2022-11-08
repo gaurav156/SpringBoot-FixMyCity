@@ -171,6 +171,13 @@ public class PostService {
     public String updateStatus(String postID, String status) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(postID).update("status", status.toLowerCase());
+        if(status.equals("fixed")){
+        Date date = new Date();
+        dbFirestore.collection("posts").document(postID).update("resolvedDate", String.valueOf(date.getTime()));
+        }
+        else{
+            dbFirestore.collection("posts").document(postID).update("resolvedDate", "");
+        }
         return "Status Updated for PostID: " + postID + " at: "+ collectionsApiFuture.get().getUpdateTime();
     }
     public List<String> getLikedBy(String postID) throws ExecutionException, InterruptedException {
