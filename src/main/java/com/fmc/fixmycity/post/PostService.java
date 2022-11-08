@@ -223,4 +223,11 @@ public class PostService {
         }
         dbFirestore.collection("posts").document(postID).update("commentIDs", commentIDs);
     }
+
+    public void removeCommentID(String postID, String commentID) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        List<String> commentIDs = getPost(postID).getCommentIDs();
+        commentIDs.remove(commentID);
+        dbFirestore.collection("posts").document(postID).update("commentIDs", commentIDs);
+    }
 }

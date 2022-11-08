@@ -90,7 +90,8 @@ public class CommentService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
         try {
-            ApiFuture<WriteResult> writeResult = dbFirestore.collection("posts/"+postID+"/comments").document(commentID).delete();
+            dbFirestore.collection("posts/"+postID+"/comments").document(commentID).delete();
+            postService.removeCommentID(postID, commentID);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
