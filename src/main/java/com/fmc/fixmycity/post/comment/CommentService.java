@@ -1,6 +1,7 @@
 package com.fmc.fixmycity.post.comment;
 
 import com.fmc.fixmycity.post.PostService;
+import com.fmc.fixmycity.post.comment.reply.ReplyService;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -20,6 +21,9 @@ public class CommentService {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private ReplyService replyService;
     public String createComment(Comment comment) throws ExecutionException, InterruptedException {
         comment.setCommentID(generateCommentID(comment.getPostID()));
 
@@ -91,6 +95,7 @@ public class CommentService {
 
         try {
             dbFirestore.collection("posts/"+postID+"/comments").document(commentID).delete();
+            replyService.getReplyList(postID, commentID).forEach( reply -> replyService.deleteReply(postID, commentID, reply.getReplyID()));
             postService.removeCommentID(postID, commentID);
             return new ResponseEntity<>(HttpStatus.OK);
         }

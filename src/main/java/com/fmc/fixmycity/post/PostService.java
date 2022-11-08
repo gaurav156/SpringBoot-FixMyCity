@@ -75,7 +75,8 @@ public class PostService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
 
         try {
-            ApiFuture<WriteResult> writeResult = dbFirestore.collection("posts").document(postID).delete();
+            dbFirestore.collection("posts").document(postID).delete();
+            getPost(postID).getCommentIDs().forEach(i -> dbFirestore.collection("posts/"+ postID +"/comments").document(i).delete());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
