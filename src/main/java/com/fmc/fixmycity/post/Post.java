@@ -31,6 +31,7 @@ public class Post {
     private String resolvedDate;
 
     private List<String> likedBy;
+    private List<String> commentIDs;
 
     public List<String> getLikedBy() {
         return likedBy;
@@ -232,17 +233,25 @@ public class Post {
         this.date = date;
     }
 
+    public List<String> getCommentIDs() {
+        return commentIDs;
+    }
+
+    public void setCommentIDs(List<String> commentIDs) {
+        this.commentIDs = commentIDs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return getDay() == post.getDay() && getMonth() == post.getMonth() && getYear() == post.getYear() && getHour() == post.getHour() && getMinute() == post.getMinute() && getSecond() == post.getSecond() && getPostID().equals(post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && Objects.equals(getImageURL(), post.getImageURL()) && getType().equals(post.getType()) && Objects.equals(getDescription(), post.getDescription()) && Objects.equals(getDate(), post.getDate()) && Objects.equals(getTime(), post.getTime()) && Objects.equals(getStatus(), post.getStatus()) && Objects.equals(getResolvedDate(), post.getResolvedDate()) && Objects.equals(getLikedBy(), post.getLikedBy());
+        return getDay() == post.getDay() && getMonth() == post.getMonth() && getYear() == post.getYear() && getHour() == post.getHour() && getMinute() == post.getMinute() && getSecond() == post.getSecond() && getPostID().equals(post.getPostID()) && getEmail().equals(post.getEmail()) && Objects.equals(getUserName(), post.getUserName()) && Objects.equals(getAddress(), post.getAddress()) && Objects.equals(getStreet_address(), post.getStreet_address()) && Objects.equals(getArea(), post.getArea()) && Objects.equals(getCity(), post.getCity()) && Objects.equals(getPostcode(), post.getPostcode()) && Objects.equals(getAdditionalDetails(), post.getAdditionalDetails()) && Objects.equals(getLat(), post.getLat()) && Objects.equals(getLng(), post.getLng()) && getImageURL().equals(post.getImageURL()) && getType().equals(post.getType()) && getDescription().equals(post.getDescription()) && Objects.equals(getDate(), post.getDate()) && Objects.equals(getTime(), post.getTime()) && Objects.equals(getStatus(), post.getStatus()) && Objects.equals(getResolvedDate(), post.getResolvedDate()) && Objects.equals(getLikedBy(), post.getLikedBy()) && Objects.equals(getCommentIDs(), post.getCommentIDs());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getType(), getDescription(), getDay(), getMonth(), getYear(), getHour(), getMinute(), getSecond(), getDate(), getTime(), getStatus(), getResolvedDate(), getLikedBy());
+        return Objects.hash(getPostID(), getEmail(), getUserName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getType(), getDescription(), getDay(), getMonth(), getYear(), getHour(), getMinute(), getSecond(), getDate(), getTime(), getStatus(), getResolvedDate(), getLikedBy(), getCommentIDs());
     }
 
     @Override
@@ -271,6 +280,7 @@ public class Post {
                 "date : " + date +
                 "status : " + status +
                 "resolvedDate : " + resolvedDate +
-                "likedBy : " + likedBy;
+                "likedBy : " + likedBy +
+                "commentIDs : " + commentIDs;
     }
 }

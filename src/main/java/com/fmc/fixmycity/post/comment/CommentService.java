@@ -1,8 +1,10 @@
 package com.fmc.fixmycity.post.comment;
 
+import com.fmc.fixmycity.post.PostService;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class CommentService {
+
+    @Autowired
+    private PostService postService;
     public String createComment(Comment comment) throws ExecutionException, InterruptedException {
         comment.setCommentID(generateCommentID(comment.getPostID()));
 
@@ -41,6 +46,7 @@ public class CommentService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts/"+comment.getPostID()+"/comments").document(comment.getCommentID()).set(comment);
 
+        postService.addCommentID(comment.getPostID(), comment.getCommentID());
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 

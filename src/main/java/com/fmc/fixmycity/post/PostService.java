@@ -210,4 +210,17 @@ public class PostService {
         }
     }
 
+    public void addCommentID(String postID, String commentID) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        List<String> commentIDs;
+
+        if(getPost(postID).getCommentIDs() != null){
+            commentIDs = getPost(postID).getCommentIDs();
+            commentIDs.add(commentID);
+        }
+        else{
+        commentIDs = Arrays.asList(commentID);
+        }
+        dbFirestore.collection("posts").document(postID).update("commentIDs", commentIDs);
+    }
 }
