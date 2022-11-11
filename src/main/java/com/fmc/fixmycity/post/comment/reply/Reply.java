@@ -15,18 +15,28 @@ public class Reply {
     private int month;
     private int year;
     private String time;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String profileImage;
     private int hour;
     private int minute;
     private int second;
+    private String userType;
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getProfileImage() {
@@ -141,17 +151,25 @@ public class Reply {
         this.second = second;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reply reply1 = (Reply) o;
-        return getDay() == reply1.getDay() && getMonth() == reply1.getMonth() && getYear() == reply1.getYear() && getHour() == reply1.getHour() && getMinute() == reply1.getMinute() && getSecond() == reply1.getSecond() && getReplyID().equals(reply1.getReplyID()) && getCommentID().equals(reply1.getCommentID()) && getEmail().equals(reply1.getEmail()) && getReply().equals(reply1.getReply()) && Objects.equals(getLikedBy(), reply1.getLikedBy()) && Objects.equals(getImageURL(), reply1.getImageURL()) && Objects.equals(getTime(), reply1.getTime()) && Objects.equals(getUserName(), reply1.getUserName()) && Objects.equals(getProfileImage(), reply1.getProfileImage());
+        return getDay() == reply1.getDay() && getMonth() == reply1.getMonth() && getYear() == reply1.getYear() && getHour() == reply1.getHour() && getMinute() == reply1.getMinute() && getSecond() == reply1.getSecond() && getReplyID().equals(reply1.getReplyID()) && getCommentID().equals(reply1.getCommentID()) && getEmail().equals(reply1.getEmail()) && getReply().equals(reply1.getReply()) && Objects.equals(getLikedBy(), reply1.getLikedBy()) && Objects.equals(getImageURL(), reply1.getImageURL()) && Objects.equals(getTime(), reply1.getTime()) && Objects.equals(getFirstName(), reply1.getFirstName()) && Objects.equals(getLastName(), reply1.getLastName()) && Objects.equals(getProfileImage(), reply1.getProfileImage()) && Objects.equals(getUserType(), reply1.getUserType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getReplyID(), getCommentID(), getEmail(), getReply(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
+        return Objects.hash(getReplyID(), getCommentID(), getEmail(), getReply(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getFirstName(), getLastName(), getProfileImage(), getHour(), getMinute(), getSecond(), getUserType());
     }
 
     @Override
@@ -159,7 +177,8 @@ public class Reply {
         return "replyID : " + replyID +
                 "commentID : " + commentID +
                 "email : " + email +
-                "userName : " + userName +
+                "firstName : " + firstName +
+                "lastName : " + lastName +
                 "profileImage : " + profileImage +
                 "reply : " + reply +
                 "likedBy : " + likedBy +
@@ -170,6 +189,7 @@ public class Reply {
                 "hour : " + hour +
                 "minute : " + minute +
                 "second : " + second +
-                "time : " + time ;
+                "time : " + time +
+                "userType : " + userType;
     }
 }

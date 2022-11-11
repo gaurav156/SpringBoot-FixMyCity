@@ -45,8 +45,10 @@ public class ReplyService {
         reply.setTime(time);
 
         User user = userService.getUser(reply.getEmail());
-        reply.setUserName(user.getFirstName());
+        reply.setFirstName(user.getFirstName());
+        reply.setLastName(user.getLastName());
         reply.setProfileImage(user.getProfileImage());
+        reply.setUserType(user.getUserType());
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts/"+postID+"/comments/"+reply.getCommentID()+"/replies").document(reply.getReplyID()).set(reply);

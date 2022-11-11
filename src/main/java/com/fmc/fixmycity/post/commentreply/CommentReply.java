@@ -1,6 +1,5 @@
 package com.fmc.fixmycity.post.commentreply;
 
-import com.fmc.fixmycity.post.comment.Comment;
 import com.fmc.fixmycity.post.comment.reply.Reply;
 
 import java.util.List;
@@ -18,18 +17,28 @@ public class CommentReply {
     private int year;
     private String time;
     private List<Reply> replies;
-    private String userName;
+    private String firstName;
+    private String lastName;
     private String profileImage;
     private int hour;
     private int minute;
     private int second;
+    private String userType;
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getProfileImage() {
@@ -151,17 +160,25 @@ public class CommentReply {
         this.second = second;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommentReply that = (CommentReply) o;
-        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getCommentID().equals(that.getCommentID()) && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getComment().equals(that.getComment()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getReplies(), that.getReplies()) && Objects.equals(getUserName(), that.getUserName()) && Objects.equals(getProfileImage(), that.getProfileImage());
+        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getCommentID().equals(that.getCommentID()) && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getComment().equals(that.getComment()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getReplies(), that.getReplies()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getProfileImage(), that.getProfileImage()) && Objects.equals(getUserType(), that.getUserType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getReplies(), getUserName(), getProfileImage(), getHour(), getMinute(), getSecond());
+        return Objects.hash(getCommentID(), getPostID(), getEmail(), getComment(), getLikedBy(), getImageURL(), getDay(), getMonth(), getYear(), getTime(), getReplies(), getFirstName(), getLastName(), getProfileImage(), getHour(), getMinute(), getSecond(), getUserType());
     }
 
     @Override
@@ -169,7 +186,8 @@ public class CommentReply {
         return "commentID : " + commentID +
                 "postID : " + postID +
                 "email : " + email +
-                "userName : " + userName +
+                "firstName : " + firstName +
+                "lastName : " + lastName +
                 "profileImage : " + profileImage +
                 "comment : " + comment +
                 "likedBy : " + likedBy +
@@ -181,6 +199,7 @@ public class CommentReply {
                 "minute : " + minute +
                 "second : " + second +
                 "time : " + time +
-                "replies : " + replies;
+                "replies : " + replies +
+                "userType : " +userType;
     }
 }

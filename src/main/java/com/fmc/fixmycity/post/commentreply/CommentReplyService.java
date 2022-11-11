@@ -42,8 +42,10 @@ public class CommentReplyService {
             obj.setMinute(c.getMinute());
             obj.setSecond(c.getSecond());
             obj.setTime(c.getTime());
-            obj.setUserName(user.getFirstName());
+            obj.setFirstName(user.getFirstName());
+            obj.setLastName(user.getLastName());
             obj.setProfileImage(user.getProfileImage());
+            obj.setUserType(user.getUserType());
             obj.setReplies(replyService.getReplyList(postID, commentID));
             return obj;
         }
