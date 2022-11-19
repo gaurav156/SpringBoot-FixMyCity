@@ -10,12 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -138,5 +134,32 @@ public class UserService {
             }
         }
         return present;
+    }
+
+    public User getUserDetails(String email) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("users").document(email);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot document = future.get();
+        User user;
+        if(document.exists()){
+            user = document.toObject(User.class);
+            user.setPassword("");
+            return user;
+        }
+        return null;
+    }
+    public String updateUserDetails(User user) throws ExecutionException, InterruptedException {
+        user.setPassword(getUser(user.getEmail()).getPassword());
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("users").document(user.getEmail()).set(user);
+        return collectionsApiFuture.get().getUpdateTime().toString();
+    }
+
+    public String updateUserType(String email, String userType) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("users").document(email).update("userType", userType.toLowerCase());
+
+        return email + " is now "+userType;
     }
 }

@@ -21,8 +21,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User getUser(@RequestParam String email) throws ExecutionException, InterruptedException {
-        return userService.getUser(email);
+    public User getUserDetails(@RequestParam String email) throws ExecutionException, InterruptedException {
+        return userService.getUserDetails(email);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -31,8 +31,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public String updateUser(@RequestBody User user) throws ExecutionException, InterruptedException {
-        return userService.updateUser(user);
+    public String updateUserDetails(@RequestBody User user) throws ExecutionException, InterruptedException {
+        return userService.updateUserDetails(user);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -77,6 +77,11 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/check", produces = {MediaType.APPLICATION_JSON_VALUE})
     public boolean checkEmail(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
         return userService.checkEmail(email);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/update/type", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String updateUserType(@RequestParam("email") String email, @RequestParam("userType") String userType) throws ExecutionException, InterruptedException {
+        return userService.updateUserType(email, userType);
     }
 
 }
