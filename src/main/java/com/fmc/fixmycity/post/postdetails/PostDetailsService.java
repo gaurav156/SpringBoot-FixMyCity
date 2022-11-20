@@ -4,10 +4,13 @@ import com.fmc.fixmycity.post.Post;
 import com.fmc.fixmycity.post.PostService;
 import com.fmc.fixmycity.user.User;
 import com.fmc.fixmycity.user.UserService;
+import com.google.cloud.firestore.Firestore;
+import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -68,6 +71,18 @@ public class PostDetailsService {
 
         try {
             postService.getPostList().forEach(i -> objList.add(getPostDetails(i.getPostID())));
+            return objList;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
+    public List<PostDetails> filterPostDetailsByEmail(String email){
+        List<PostDetails> objList = new ArrayList<>();
+
+        try{
+            postService.filterPostByEmail(email).forEach(i -> objList.add(getPostDetails(i.getPostID())));
             return objList;
         }
         catch (Exception e){

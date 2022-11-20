@@ -25,4 +25,9 @@ public class PostDetailsController {
     public List<PostDetails> getList(){
         return postDetailsService.getList();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/filter", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<PostDetails> filterPostDetailsByEmail(@RequestParam("email") String email){
+        return postDetailsService.filterPostDetailsByEmail(email);
+    }
 }
