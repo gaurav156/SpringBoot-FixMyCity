@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -161,5 +162,30 @@ public class UserService {
         dbFirestore.collection("users").document(email).update("userType", userType.toLowerCase());
 
         return email + " is now "+userType;
+    }
+
+    public String assignPostcode(String email, List<String> assignedPostcode) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+
+//       Object list = dbFirestore.collection("users").document(email).get().get().get("assignedPostcode");
+//        System.out.println(list);
+////        if(list != null){
+////            list.addAll(assignedPostcode);
+//        List<String> postcodes = new ArrayList<>();
+//        if (list != null) {
+//            postcodes.addAll((Collection<? extends String>) list);
+//        }
+//
+//        if (postcodes != null) {
+//            for(String val: assignedPostcode) {
+//                if(!postcodes.contains(val)) {
+//                    postcodes.add(val);
+//                }
+//            }
+////            postcodes.addAll(assignedPostcode);
+//        }
+//        }
+        dbFirestore.collection("users").document(email).update("assignedPostcode", assignedPostcode);
+        return email + " has be assigned postcode : " + assignedPostcode;
     }
 }

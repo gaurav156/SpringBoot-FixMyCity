@@ -1,5 +1,7 @@
 package com.fmc.fixmycity.user;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -12,6 +14,15 @@ public class User {
     private String postcode;
     private String contactNo;
     private String profileImage;
+    private List<String> assignedPostcode;
+
+    public List<String> getAssignedPostcode() {
+        return assignedPostcode;
+    }
+
+    public void setAssignedPostcode(List<String> assignedPostcode) {
+        this.assignedPostcode = assignedPostcode;
+    }
 
     public String getEmail() {
         return email;
@@ -90,12 +101,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return getEmail().equals(user.getEmail()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getUserType(), user.getUserType()) && Objects.equals(getCity(), user.getCity()) && Objects.equals(getPostcode(), user.getPostcode()) && Objects.equals(getContactNo(), user.getContactNo()) && Objects.equals(getProfileImage(), user.getProfileImage());
+        return getEmail().equals(user.getEmail()) && getFirstName().equals(user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getUserType(), user.getUserType()) && Objects.equals(getCity(), user.getCity()) && Objects.equals(getPostcode(), user.getPostcode()) && Objects.equals(getContactNo(), user.getContactNo()) && Objects.equals(getProfileImage(), user.getProfileImage()) && Objects.equals(getAssignedPostcode(), user.getAssignedPostcode());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getFirstName(), getLastName(), getPassword(), getUserType(), getCity(), getPostcode(), getContactNo(), getProfileImage());
+        return Objects.hash(getEmail(), getFirstName(), getLastName(), getPassword(), getUserType(), getCity(), getPostcode(), getContactNo(), getProfileImage(), getAssignedPostcode());
     }
 
     @Override
@@ -108,6 +119,7 @@ public class User {
                 "city : " + city +
                 "postcode : " + postcode +
                 "contactNo : " + contactNo +
-                "profileImage : " + profileImage;
+                "profileImage : " + profileImage +
+                "assignedPostcode : " + assignedPostcode;
     }
 }

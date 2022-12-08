@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -82,6 +83,10 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT, value = "/update/type", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String updateUserType(@RequestParam("email") String email, @RequestParam("userType") String userType) throws ExecutionException, InterruptedException {
         return userService.updateUserType(email, userType);
+    }
+    @RequestMapping(method = RequestMethod.PUT, value = "/assign/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String assignPostcode(@RequestParam("email")String email, @RequestBody List<String> assignedPostcode) throws ExecutionException, InterruptedException {
+        return userService.assignPostcode(email, assignedPostcode);
     }
 
 }
