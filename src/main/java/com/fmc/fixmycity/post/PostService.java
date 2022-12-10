@@ -231,4 +231,11 @@ public class PostService {
         commentIDs.remove(commentID);
         dbFirestore.collection("posts").document(postID).update("commentIDs", commentIDs);
     }
+
+    public List<String> getPostIdByPostcode(String value) throws ExecutionException, InterruptedException {
+        List<String> postIdList = new ArrayList<>();
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        dbFirestore.collection("posts").whereEqualTo("postcode", value).get().get().forEach(d -> postIdList.add(d.getId()));
+        return Collections.unmodifiableList(postIdList);
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class PostDetailsService {
@@ -78,15 +79,28 @@ public class PostDetailsService {
         }
     }
 
-    public List<PostDetails> filterPostDetailsByEmail(String email){
+    public List<PostDetails> filterPostDetailsByEmail(String email) throws ExecutionException, InterruptedException {
         List<PostDetails> objList = new ArrayList<>();
 
-        try{
-            postService.filterPostByEmail(email).forEach(i -> objList.add(getPostDetails(i.getPostID())));
+        String userType = userService.getUserType(email);
+
+        if(userType.equals("official")){
+            List<String> assignedPostcode = userService.getAssignedPostcode(email);
+            for (String i : assignedPostcode) {
+            postService.getPostIdByPostcode(i).forEach(x -> objList.add(getPostDetails(x)));
+            }
             return objList;
         }
-        catch (Exception e){
-            return null;
+        else {
+            try{
+                postService.filterPostByEmail(email).forEach(i -> objList.add(getPostDetails(i.getPostID())));
+                return objList;
+            }
+            catch (Exception e){
+                return null;
+            }
         }
     }
+
+//    public List<PostDetails> filterPostByEmail
 }

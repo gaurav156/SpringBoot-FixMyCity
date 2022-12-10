@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/post/details")
@@ -27,7 +28,7 @@ public class PostDetailsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/filter", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<PostDetails> filterPostDetailsByEmail(@RequestParam("email") String email){
+    public List<PostDetails> filterPostDetailsByEmail(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
         return postDetailsService.filterPostDetailsByEmail(email);
     }
 }

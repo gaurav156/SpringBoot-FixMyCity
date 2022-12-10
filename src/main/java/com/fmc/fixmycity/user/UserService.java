@@ -188,4 +188,24 @@ public class UserService {
         dbFirestore.collection("users").document(email).update("assignedPostcode", assignedPostcode);
         return email + " has be assigned postcode : " + assignedPostcode;
     }
+
+    public String getUserType(String email) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentSnapshot document = dbFirestore.collection("users").document(email).get().get();
+
+        String userType;
+        if(document.exists()){
+            userType = document.getString("userType");
+            return userType;
+        }
+        return null;
+    }
+
+    public List<String> getAssignedPostcode(String email) throws ExecutionException, InterruptedException {
+        User user = getUserDetails(email);
+        if(user != null){
+            return user.getAssignedPostcode();
+        }
+        return null;
+    }
 }
