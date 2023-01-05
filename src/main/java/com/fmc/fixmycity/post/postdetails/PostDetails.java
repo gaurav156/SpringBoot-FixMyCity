@@ -34,6 +34,8 @@ public class PostDetails {
     private List<String> commentIDs;
     private String profileImage;
     private String userType;
+    private String assignedWorker;
+    private String assignedOn;
 
     public String getPostID() {
         return postID;
@@ -267,17 +269,33 @@ public class PostDetails {
         this.userType = userType;
     }
 
+    public String getAssignedWorker() {
+        return assignedWorker;
+    }
+
+    public void setAssignedWorker(String assignedWorker) {
+        this.assignedWorker = assignedWorker;
+    }
+
+    public String getAssignedOn() {
+        return assignedOn;
+    }
+
+    public void setAssignedOn(String assignedOn) {
+        this.assignedOn = assignedOn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PostDetails that = (PostDetails) o;
-        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getFirstName().equals(that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getStreet_address(), that.getStreet_address()) && Objects.equals(getArea(), that.getArea()) && Objects.equals(getCity(), that.getCity()) && Objects.equals(getPostcode(), that.getPostcode()) && Objects.equals(getAdditionalDetails(), that.getAdditionalDetails()) && Objects.equals(getLat(), that.getLat()) && Objects.equals(getLng(), that.getLng()) && getImageURL().equals(that.getImageURL()) && getType().equals(that.getType()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getDate(), that.getDate()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getStatus(), that.getStatus()) && Objects.equals(getResolvedDate(), that.getResolvedDate()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getCommentIDs(), that.getCommentIDs()) && Objects.equals(getProfileImage(), that.getProfileImage()) && Objects.equals(getUserType(), that.getUserType());
+        return getDay() == that.getDay() && getMonth() == that.getMonth() && getYear() == that.getYear() && getHour() == that.getHour() && getMinute() == that.getMinute() && getSecond() == that.getSecond() && getPostID().equals(that.getPostID()) && getEmail().equals(that.getEmail()) && getFirstName().equals(that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getStreet_address(), that.getStreet_address()) && Objects.equals(getArea(), that.getArea()) && Objects.equals(getCity(), that.getCity()) && Objects.equals(getPostcode(), that.getPostcode()) && Objects.equals(getAdditionalDetails(), that.getAdditionalDetails()) && Objects.equals(getLat(), that.getLat()) && Objects.equals(getLng(), that.getLng()) && Objects.equals(getImageURL(), that.getImageURL()) && Objects.equals(getType(), that.getType()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getDate(), that.getDate()) && Objects.equals(getTime(), that.getTime()) && Objects.equals(getStatus(), that.getStatus()) && Objects.equals(getResolvedDate(), that.getResolvedDate()) && Objects.equals(getLikedBy(), that.getLikedBy()) && Objects.equals(getCommentIDs(), that.getCommentIDs()) && Objects.equals(getProfileImage(), that.getProfileImage()) && Objects.equals(getUserType(), that.getUserType()) && Objects.equals(getAssignedWorker(), that.getAssignedWorker()) && Objects.equals(getAssignedOn(), that.getAssignedOn());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPostID(), getEmail(), getFirstName(), getLastName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getType(), getDescription(), getDay(), getMonth(), getYear(), getHour(), getMinute(), getSecond(), getDate(), getTime(), getStatus(), getResolvedDate(), getLikedBy(), getCommentIDs(), getProfileImage(), getUserType());
+        return Objects.hash(getPostID(), getEmail(), getFirstName(), getLastName(), getAddress(), getStreet_address(), getArea(), getCity(), getPostcode(), getAdditionalDetails(), getLat(), getLng(), getImageURL(), getType(), getDescription(), getDay(), getMonth(), getYear(), getHour(), getMinute(), getSecond(), getDate(), getTime(), getStatus(), getResolvedDate(), getLikedBy(), getCommentIDs(), getProfileImage(), getUserType(), getAssignedWorker(), getAssignedOn());
     }
 
     @Override
@@ -310,6 +328,8 @@ public class PostDetails {
                 "likedBy : " + likedBy +
                 "commentIDs : " + commentIDs +
                 "profileImage : " + profileImage +
-                "userType : " + userType ;
+                "userType : " + userType +
+                "assignedWorker : " + assignedWorker +
+                "assignedOn : " + assignedOn;
     }
 }

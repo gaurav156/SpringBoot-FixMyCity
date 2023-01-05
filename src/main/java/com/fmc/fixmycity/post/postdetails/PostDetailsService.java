@@ -9,9 +9,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -59,6 +59,8 @@ public class PostDetailsService {
             obj.setLastName(user.getLastName());
             obj.setProfileImage(user.getProfileImage());
             obj.setUserType(user.getUserType());
+            obj.setAssignedWorker(p.getAssignedWorker());
+            obj.setAssignedOn(p.getAssignedOn());
 
             return obj;
         }
@@ -100,6 +102,29 @@ public class PostDetailsService {
                 return null;
             }
         }
+    }
+
+    public String assignWorker(String postID, String email) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            String e = dbFirestore.collection("posts").document(postID).get().get().getString("assignedWorker");
+            if (e != null) {
+                System.out.println(e);
+                userService.removeCurrentAssignedPosts(e, postID);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        dbFirestore.collection("posts").document(postID).update("assignedWorker", email);
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        dbFirestore.collection("posts").document(postID).update("assignedOn", localDate.toString());
+
+        userService.setCurrentAssignedPosts(email, postID);
+        return email+" assigned to resolve postID: "+postID;
     }
 
 //    public List<PostDetails> filterPostByEmail

@@ -31,4 +31,8 @@ public class PostDetailsController {
     public List<PostDetails> filterPostDetailsByEmail(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
         return postDetailsService.filterPostDetailsByEmail(email);
     }
+    @RequestMapping(method = RequestMethod.PUT, value = "/assign/worker", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String assignWorker(@RequestParam("postID") String postID, @RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return postDetailsService.assignWorker(postID, email);
+    }
 }

@@ -15,6 +15,24 @@ public class User {
     private String contactNo;
     private String profileImage;
     private List<String> assignedPostcode;
+    private List<String> currentAssignedPosts;
+    private List<String> resolvedPosts;
+
+    public List<String> getCurrentAssignedPosts() {
+        return currentAssignedPosts;
+    }
+
+    public void setCurrentAssignedPosts(List<String> currentAssignedPosts) {
+        this.currentAssignedPosts = currentAssignedPosts;
+    }
+
+    public List<String> getResolvedPosts() {
+        return resolvedPosts;
+    }
+
+    public void setResolvedPosts(List<String> resolvedPosts) {
+        this.resolvedPosts = resolvedPosts;
+    }
 
     public List<String> getAssignedPostcode() {
         return assignedPostcode;
@@ -101,12 +119,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return getEmail().equals(user.getEmail()) && getFirstName().equals(user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getUserType(), user.getUserType()) && Objects.equals(getCity(), user.getCity()) && Objects.equals(getPostcode(), user.getPostcode()) && Objects.equals(getContactNo(), user.getContactNo()) && Objects.equals(getProfileImage(), user.getProfileImage()) && Objects.equals(getAssignedPostcode(), user.getAssignedPostcode());
+        return getEmail().equals(user.getEmail()) && getFirstName().equals(user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getUserType(), user.getUserType()) && Objects.equals(getCity(), user.getCity()) && Objects.equals(getPostcode(), user.getPostcode()) && Objects.equals(getContactNo(), user.getContactNo()) && Objects.equals(getProfileImage(), user.getProfileImage()) && Objects.equals(getAssignedPostcode(), user.getAssignedPostcode()) && Objects.equals(getCurrentAssignedPosts(), user.getCurrentAssignedPosts()) && Objects.equals(getResolvedPosts(), user.getResolvedPosts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmail(), getFirstName(), getLastName(), getPassword(), getUserType(), getCity(), getPostcode(), getContactNo(), getProfileImage(), getAssignedPostcode());
+        return Objects.hash(getEmail(), getFirstName(), getLastName(), getPassword(), getUserType(), getCity(), getPostcode(), getContactNo(), getProfileImage(), getAssignedPostcode(), getCurrentAssignedPosts(), getResolvedPosts());
     }
 
     @Override
@@ -120,6 +138,9 @@ public class User {
                 "postcode : " + postcode +
                 "contactNo : " + contactNo +
                 "profileImage : " + profileImage +
-                "assignedPostcode : " + assignedPostcode;
+                "assignedPostcode : " + assignedPostcode +
+                "currentAssignedPosts : " + currentAssignedPosts +
+                "resolvedPosts : " + resolvedPosts;
+
     }
 }

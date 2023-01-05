@@ -208,4 +208,99 @@ public class UserService {
         }
         return null;
     }
+
+    public List<User> filterWorkersByPostcode(String postcode) throws ExecutionException, InterruptedException {
+        List<User> workerList = filterUserByUserType("worker");
+        List<User> filteredList = new ArrayList<>();
+        workerList.stream().filter(w -> w.getAssignedPostcode().contains(postcode)).forEach(filteredList::add);
+        return Collections.unmodifiableList(filteredList);
+    }
+    public String setCurrentAssignedPosts(String email, String postID) throws ExecutionException, InterruptedException {
+        User user = getUserDetails(email);
+        if(user != null && user.getUserType().equals("worker")){
+            List<String> temp = getCurrentAssignedPosts(email);
+            List<String> assignedPosts;
+            if(temp != null){
+            assignedPosts = temp;
+            }
+            else{
+                assignedPosts = new ArrayList<>();
+            }
+            if(!assignedPosts.contains(postID)){
+            assignedPosts.add(postID);
+                Firestore dbFirestore = FirestoreClient.getFirestore();
+                dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
+                return "Post "+postID+" assigned to "+email;
+            }
+            else {
+                return "Post "+postID+" already assigned to "+email;
+            }
+        }
+        return null;
+    }
+    public List<String> getCurrentAssignedPosts(String email) throws ExecutionException, InterruptedException {
+        User user = getUserDetails(email);
+        if(user != null && user.getUserType().equals("worker")){
+            return user.getCurrentAssignedPosts();
+        }
+        return null;
+    }
+
+    public String setResolvedPosts(String email, String postID) throws ExecutionException, InterruptedException {
+        User user = getUserDetails(email);
+        if(user != null && (user.getUserType().equals("worker") || user.getUserType().equals("official"))){
+
+            List<String> temp = getResolvedPosts(email);
+            List<String> resolvedPosts;
+            if(temp != null){
+                resolvedPosts = temp;
+            }
+            else{
+                resolvedPosts = new ArrayList<>();
+            }
+            resolvedPosts.add(postID);
+
+            Firestore dbFirestore = FirestoreClient.getFirestore();
+            dbFirestore.collection("users").document(email).update("resolvedPosts", resolvedPosts);
+
+            List<String> assignedPosts = getCurrentAssignedPosts(email);
+            assignedPosts.remove(postID);
+            dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
+
+            return "Post "+postID+" resolved by "+email;
+        }
+        return null;
+    }
+
+    public List<String> getResolvedPosts(String email) throws ExecutionException, InterruptedException {
+        User user = getUserDetails(email);
+        if(user != null && (user.getUserType().equals("worker") || user.getUserType().equals("official"))){
+            return user.getResolvedPosts();
+        }
+        return null;
+    }
+
+    public String removeCurrentAssignedPosts(String email, String postID) throws ExecutionException, InterruptedException {
+//        User user = getUserDetails(email);
+            List<String> temp = getCurrentAssignedPosts(email);
+            List<String> assignedPosts;
+            if(temp != null){
+                assignedPosts = temp;
+            }
+            else{
+                assignedPosts = new ArrayList<>();
+            }
+            if(assignedPosts.contains(postID)){
+                assignedPosts.remove(postID);
+                Firestore dbFirestore = FirestoreClient.getFirestore();
+                dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
+                return "Post "+postID+" unassigned to "+email;
+            }
+            else {
+                return "Post "+postID+" is already unassigned to "+email;
+            }
+    }
+
+
+
 }

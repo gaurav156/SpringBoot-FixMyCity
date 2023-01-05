@@ -89,4 +89,26 @@ public class UserController {
         return userService.assignPostcode(email, assignedPostcode);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/worker/filter/postcode", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<User> filterWorkersByPostcode(@RequestParam("postcode") String postcode) throws ExecutionException, InterruptedException {
+        return userService.filterWorkersByPostcode(postcode);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/worker/assign/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String setCurrentAssignedPosts(@RequestParam("email") String email, @RequestParam("postID") String postID) throws ExecutionException, InterruptedException {
+        return userService.setCurrentAssignedPosts(email, postID);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/worker/get/assign/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<String> getCurrentAssignedPosts(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return userService.getCurrentAssignedPosts(email);
+    }
+    @RequestMapping(method = RequestMethod.PUT, value = "/worker/resolved/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String setResolvedPosts(@RequestParam("email") String email, @RequestParam("postID") String postID) throws ExecutionException, InterruptedException {
+        return userService.setResolvedPosts(email, postID);
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/worker/get/resolved/post", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<String> getResolvedPosts(@RequestParam("email") String email) throws ExecutionException, InterruptedException {
+        return userService.getResolvedPosts(email);
+    }
+
 }
