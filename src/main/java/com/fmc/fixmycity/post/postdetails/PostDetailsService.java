@@ -93,6 +93,17 @@ public class PostDetailsService {
             }
             return objList;
         }
+        else if(userType.equals("worker")){
+            List<String> currentAssignedPosts = userService.getCurrentAssignedPosts(email);
+            for (String i : currentAssignedPosts) {
+                objList.add(getPostDetails(i));
+            }
+            List<String> resolvedPosts = userService.getResolvedPosts(email);
+            for (String i : resolvedPosts) {
+                objList.add(getPostDetails(i));
+            }
+            return objList;
+        }
         else {
             try{
                 postService.filterPostByEmail(email).forEach(i -> objList.add(getPostDetails(i.getPostID())));
