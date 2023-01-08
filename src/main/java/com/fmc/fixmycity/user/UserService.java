@@ -280,7 +280,7 @@ public class UserService {
         return null;
     }
 
-    public String removeCurrentAssignedPosts(String email, String postID) throws ExecutionException, InterruptedException {
+    public void removeCurrentAssignedPosts(String email, String postID) throws ExecutionException, InterruptedException {
 //        User user = getUserDetails(email);
             List<String> temp = getCurrentAssignedPosts(email);
             List<String> assignedPosts;
@@ -294,13 +294,11 @@ public class UserService {
                 assignedPosts.remove(postID);
                 Firestore dbFirestore = FirestoreClient.getFirestore();
                 dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
-                return "Post "+postID+" unassigned to "+email;
+                System.out.println("Post "+postID+" unassigned to "+email);
             }
             else {
-                return "Post "+postID+" is already unassigned to "+email;
+                System.out.println("Post "+postID+" is already unassigned to "+email);
             }
     }
-
-
 
 }
