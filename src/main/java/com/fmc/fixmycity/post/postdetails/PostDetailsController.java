@@ -35,4 +35,8 @@ public class PostDetailsController {
     public String assignWorker(@RequestParam("postID") String postID, @RequestParam("email") String email) throws ExecutionException, InterruptedException {
         return postDetailsService.assignWorker(postID, email);
     }
+    @RequestMapping(method = RequestMethod.DELETE, value = "/unassign/worker", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public void unAssignWorker(@RequestParam("postID") String postID) {
+        postDetailsService.unAssignWorker(postID);
+    }
 }

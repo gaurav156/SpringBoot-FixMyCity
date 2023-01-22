@@ -137,4 +137,17 @@ public class PostDetailsService {
         return email+" assigned to resolve postID: "+postID;
     }
 
+    public void unAssignWorker(String postID) {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        try {
+            String e = dbFirestore.collection("posts").document(postID).get().get().getString("assignedWorker");
+            if (e != null) {
+                userService.removeCurrentAssignedPosts(e, postID);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

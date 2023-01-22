@@ -294,6 +294,7 @@ public class UserService {
                 assignedPosts.remove(postID);
                 Firestore dbFirestore = FirestoreClient.getFirestore();
                 dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
+                dbFirestore.collection("posts").document(postID).update("assignedWorker", "");
                 System.out.println("Post "+postID+" unassigned to "+email);
             }
             else {
