@@ -120,7 +120,6 @@ public class PostDetailsService {
         try {
             String e = dbFirestore.collection("posts").document(postID).get().get().getString("assignedWorker");
             if (e != null) {
-                System.out.println(e);
                 userService.removeCurrentAssignedPosts(e, postID);
             }
         }
@@ -138,5 +137,4 @@ public class PostDetailsService {
         return email+" assigned to resolve postID: "+postID;
     }
 
-//    public List<PostDetails> filterPostByEmail
 }
