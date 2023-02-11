@@ -99,8 +99,10 @@ public class PostDetailsService {
                 objList.add(getPostDetails(i));
             }
             List<String> resolvedPosts = userService.getResolvedPosts(email);
-            for (String i : resolvedPosts) {
-                objList.add(getPostDetails(i));
+            if(resolvedPosts != null){
+                for (String i : resolvedPosts) {
+                    objList.add(getPostDetails(i));
+                }
             }
             return objList;
         }
