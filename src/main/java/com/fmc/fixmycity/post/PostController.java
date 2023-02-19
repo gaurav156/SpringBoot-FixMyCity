@@ -88,6 +88,11 @@ public class PostController {
         return postService.filterPostByStatus(status);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/posts/count", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public long getPostCountByStatus(@RequestParam("status") String status) throws ExecutionException, InterruptedException {
+        return postService.getPostCountByStatus(status);
+    }
+
     @RequestMapping(method = RequestMethod.PUT, value = "/posts/update/status", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String updateStatus(@RequestParam("postID") String postID, @RequestParam("status") String status) throws ExecutionException, InterruptedException {
         return postService.updateStatus(postID, status);

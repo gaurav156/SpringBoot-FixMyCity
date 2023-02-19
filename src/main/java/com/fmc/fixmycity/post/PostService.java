@@ -168,7 +168,10 @@ public class PostService {
         dbFirestore.collection("posts").whereEqualTo("status", value).get().get().forEach(d -> postList.add(d.toObject(Post.class)));
         return Collections.unmodifiableList(postList);
     }
-
+    public long getPostCountByStatus(String value) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        return dbFirestore.collection("posts").whereEqualTo("status", value).count().get().get().getCount();
+    }
     public String updateStatus(String postID, String status) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("posts").document(postID).update("status", status.toLowerCase());
