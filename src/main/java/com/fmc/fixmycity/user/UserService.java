@@ -281,7 +281,6 @@ public class UserService {
     }
 
     public void removeCurrentAssignedPosts(String email, String postID) throws ExecutionException, InterruptedException {
-//        User user = getUserDetails(email);
             List<String> temp = getCurrentAssignedPosts(email);
             List<String> assignedPosts;
             if(temp != null){
@@ -295,6 +294,7 @@ public class UserService {
                 Firestore dbFirestore = FirestoreClient.getFirestore();
                 dbFirestore.collection("users").document(email).update("currentAssignedPosts", assignedPosts);
                 dbFirestore.collection("posts").document(postID).update("assignedWorker", "");
+                dbFirestore.collection("posts").document(postID).update("assignedOn", "");
                 System.out.println("Post "+postID+" unassigned to "+email);
             }
             else {
